@@ -10,19 +10,12 @@ Post.init(
       allowNull: false,
     },
     user_id: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
       references: {
         model: "user",
         key: "id",
       },
     },
-    comment_id: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'comment',
-            key: 'id'
-        }
-    }
   },
   {
     sequelize,
