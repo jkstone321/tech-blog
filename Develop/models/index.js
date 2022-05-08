@@ -10,7 +10,7 @@ Post.hasMany(Comment, {
     // fill out the rest of the hasMany relationship
 });
 
-Comment.belongTo(User, {
+Comment.belongsTo(User, {
     // fill out the rest of the belongsTo relationship
 });
 
