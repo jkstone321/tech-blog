@@ -1,7 +1,7 @@
-// You need the following required:
-// path
-// express
-// express-handlebars
+const path = require("path");
+const express = require("express");
+const session = require("express-session");
+const hbs = require("express-handlebars");
 // helpers (if you are putting timestamps on posts)
 
 const app = express();
@@ -11,21 +11,27 @@ const sequelize = require("./config/config");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const sess = {
-    // For password sessions
+  secret: "HUH AAUUGGHH",
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
 };
 
 app.use(session(sess));
 
-const hbs = exphbs.create({ helpers });
+// const hbs = exphbs.create({ helpers });
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(require('./controllers'));
+app.use(require("./controllers"));
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
