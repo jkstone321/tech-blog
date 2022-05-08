@@ -1,8 +1,9 @@
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
-const hbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
 // helpers (if you are putting timestamps on posts)
+const helpers = require('./utils/helper')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,7 +23,7 @@ const sess = {
 
 app.use(session(sess));
 
-// const hbs = exphbs.create({ helpers });
+const hbs = exphbs.create({ helpers });
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
