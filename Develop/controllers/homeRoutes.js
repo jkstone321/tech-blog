@@ -4,8 +4,13 @@ const { Post, Comment, User } = require("../models");
 router.get("/", async (req, res) => {
   // get all posts for the homepage
   try {
-    const postData = await Post.findAll();
-    res.render("posts", { postData });
+    const postData = await Post.findAll({ include: User });
+    const posts = postData.map((project) => project.get({ plain: true }));
+    console.log(posts);
+    res.render("posts", {
+      posts,
+      logged_in: req.session.logged_in,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -27,7 +32,7 @@ router.get("/login", (req, res) => {
 
 router.get("/signup", (req, res) => {
   // signup
-  res.render("signup")
+  res.render("signup");
 });
 
 module.exports = router;
