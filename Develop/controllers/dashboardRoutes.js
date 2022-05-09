@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post } = require("../models");
+const { Post, User } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", withAuth, async (req, res) => {
@@ -7,8 +7,10 @@ router.get("/", withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
       where: { user_id: req.session.user_id },
+      include: User,
     });
-    res.render("posts", { postData, layout: "dashboard.handlebars" });
+    const posts = postData.map((project) => project.get({ plain: true }));
+    res.render("posts", { posts, layout: "dashboard.handlebars" });
   } catch (err) {
     res.status(500).json(err);
   }
