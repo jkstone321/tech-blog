@@ -11,7 +11,7 @@ const signupFormHandler = async function (event) {
     // Create the functionality to help create the buttons for your website.
     method: "POST",
     body: JSON.stringify({ username, password }),
-    headers: { 'Content-Type': 'application/json' }
+    headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
