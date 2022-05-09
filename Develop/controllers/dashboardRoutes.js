@@ -16,7 +16,7 @@ router.get("/", withAuth, async (req, res) => {
 
 router.get("/new", withAuth, (req, res) => {
   // for showing new posts to the user
-  res.render("new-posts", { layout: "dashboard.handlebars" });
+  res.render("new-posts");
 });
 
 router.get("/edit/:id", withAuth, async (res, req) => {

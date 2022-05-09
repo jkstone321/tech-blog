@@ -6,13 +6,15 @@ const newFormHandler = async function(event) {
   
     await fetch(`/api/post`, {
          // Create the functionality to help create the buttons for your website.
+         method: 'POST',
+         body: JSON.stringify({ title, body }),
 
     });
   
     document.location.replace('/dashboard');
   };
   
-  document
-    .querySelector('#new-post-form')
-    .addEventListener('submit', newFormHandler);
+
+document.querySelector('#new-post-form')
+document.addEventListener('submit', newFormHandler);
   
