@@ -4,7 +4,9 @@ const { Post, Comment, User } = require("../models");
 router.get("/", async (req, res) => {
   // get all posts for the homepage
   try {
-    const postData = await Post.findAll({ include: User });
+    const postData = await Post.findAll({
+      include: User,
+    });
     const posts = postData.map((project) => project.get({ plain: true }));
     console.log(posts);
     res.render("posts", {
@@ -18,6 +20,13 @@ router.get("/", async (req, res) => {
 
 router.get("/post/:id", async (req, res) => {
   // get a single post
+  try {
+    const postData = await Post.findByPk(req.params.id);
+    const posts = postData.get({ plain: true });
+    res.render("add-comment", { posts });
+  } catch (err) {
+    res.status(400).json.err;
+  }
 });
 
 router.get("/login", (req, res) => {
